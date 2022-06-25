@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>退院時サマリ受付ました</h2>
+<div class="form">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-danger">{{ post["Message"]}} </li>
+        <li class="list-group-item list-group-item-danger">GET要求のパス：{{post["Path"]}}</li>
+    </ul>
+    </div>
+        <a class="btn btn-success btn-sm" href="/">最初に戻る</a>
+    </li>
+    </ul>   
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>処方データ選択画面</h2>
+<div class="form">
+    <form action="/msearch/{{post.docid}}/{{post.pid}}/{{post.encid}}" method='POST'>
+        <label for="title">処方番号</label>
+        <input type="text" name="oid" value={{ post.ordernumber }}>
+        <input type="submit" value="処方データ検索">
+    </form>
+    {% if post != "" %}
+    <div class="card-body">
+        <h1>患者番号：{{ post[0].PatientNumber }} ／ 入院管理番号：{{post[0].EncounterNumber}}</h1>
+        {% for morder in post[1:] %}
+        <div class="alert alert-warning" role="alert">
+            <h2 class="card-title">
+                処方番号：{{morder[0]}}
+            </h2>
+            <p>処方日付：{{ morder[7] }}</p>
+            <p>薬剤名：{{ morder[11] }}</p>
+            <p>1回 {{morder[5]}} {{morder[4]}}　／ 1日 {{morder[6]}}回</p>
+            <p>{{ morder[9] }}日分</p>
+            <a class="btn btn-success btn-sm" href="/select/{{post[0].DocNumber}}/{{post[0].PatientNumber}}/{{post[0].EncounterNumber}}/{{morder[0]}}" role="button">この処方を選択</a>
+        
+        </div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

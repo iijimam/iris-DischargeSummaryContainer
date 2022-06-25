@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>情報入力＆選択</h2>
+<div class="form">
+    <form action="/psearch/DC001" method='POST'>
+        <label for="title">患者番号</label>
+        <input type="text" name="pid" value={{ post.pid }}>
+        <input type="submit" value="患者検索">
+    </form>
+    {% if post != "" %}
+    <div class="card-body">
+        <h1>患者番号：{{ post[0].PatientNumber }}</h1>
+        {% for enc in post %}
+        <div class="alert alert-warning" role="alert">
+            <h2 class="card-title">
+                入院管理番号：{{ enc.EncounterNumber }}
+            </h2>
+            <p>入院開始日：{{ enc.StartDate }} ／ 入院終了日：{{ enc.EndDate }}</p>
+            <a class="btn btn-success btn-sm" href="/msearch/{{ enc.DocNumber }}/{{ enc.PatientNumber }}/{{ enc.EncounterNumber }}" role="button">この入院を選択</a>
+        
+        </div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
