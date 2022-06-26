@@ -203,6 +203,7 @@ InterSystems IRIS for Health 2022.1.0 community edition を使用して、電子
 - git
 
 - Bootstrap
+    
     Bootstrapの「コンパイルされた CSS と JS」のZipをダウンロードし展開します。
     
     展開すると、**css**フォルダがあるので、そのフォルダごと、[Flask/static](./Flask/static)以下にコピーしてください。
