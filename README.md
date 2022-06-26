@@ -13,7 +13,7 @@ InterSystems IRIS for Health 2022.1.0 community edition を使用して、電子
 
 - **作成の流れご紹介**
 
-    JSONテンプレートエンジンを利用してリソース用テンプレートに値を割り当てる際、SELECTで取得した結果をJSON文字列として取得できているととても簡単に割り当てることができます。
+    [JSONテンプレートエンジン](https://github.com/Intersystems-jp/JSONTemplate)を利用してリソース用テンプレートに値を割り当てる際、SELECTで取得した結果をJSON文字列として取得できているととても簡単に割り当てることができます。
 
 
     以下のJSONが[Patientリソーステンプレート用クラス](./src/FHIRTemplate/Patient.cls)で指定しているJSONです。
@@ -203,7 +203,9 @@ InterSystems IRIS for Health 2022.1.0 community edition を使用して、電子
 - git
 
 - Bootstrap
-    Bootstrapのファイルをダウンロードし、[Flask/static/css](./Flask/static/css)以下にCSSファイルを配置してください。
+    Bootstrapの「コンパイルされた CSS と JS」のZipをダウンロードし展開します。
+    
+    展開すると、**css**フォルダがあるので、そのフォルダごと、[Flask/static](./Flask/static)以下にコピーしてください。
 
     参考ページ：https://tech-diary.net/flask-introduction/#index_id24
 
