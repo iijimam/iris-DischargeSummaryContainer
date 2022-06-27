@@ -202,15 +202,6 @@ InterSystems IRIS for Health 2022.1.0 community edition を使用して、電子
 - docker-compose
 - git
 
-- Bootstrap
-    
-    Bootstrapの「コンパイルされた CSS と JS」のZipをダウンロードし展開します。
-    
-    展開すると、**css**フォルダがあるので、そのフォルダごと、[Flask/static](./Flask/static)以下にコピーしてください。
-
-    参考ページ：https://tech-diary.net/flask-introduction/#index_id24
-
-
 ## 開始手順
 
 1. [data](./data)をVolumeマウントするための設定
@@ -244,6 +235,21 @@ InterSystems IRIS for Health 2022.1.0 community edition を使用して、電子
     コンテナ内のログの見方
     ```
     docker-compose logs
+    ```
+
+    Flaskのアプリが起動してると、以下ようなログ（下4行）が表示されます。
+
+    ```
+    $ docker-compose logs
+        ＜省略＞
+    irisfacade    | [INFO] ...started InterSystems IRIS instance IRIS
+    irisfacade    | 
+    irisfacade    | Waited 14 seconds for InterSystems IRIS to reach state 'running'
+    irisfacade    | /iris-main "$@" (wd: /opt/try)
+    irisfacade    | [2022-06-27 10:34:57 +0900] [881] [INFO] Starting gunicorn 20.1.0
+    irisfacade    | [2022-06-27 10:34:57 +0900] [881] [INFO] Listening at: http://0.0.0.0:5000 (881)
+    irisfacade    | [2022-06-27 10:34:57 +0900] [881] [INFO] Using worker: sync
+    irisfacade    | [2022-06-27 10:34:57 +0900] [883] [INFO] Booting worker with pid: 883
     ```
 
 4. Webアプリ起動
@@ -281,6 +287,3 @@ InterSystems IRIS for Health 2022.1.0 community edition を使用して、電子
     ```
     docker-compose down
     ```
-
-
-
