@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  irisfacade:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: ["51779:1972","52779:52773","5000:5000"]
+    container_name: irisfacade
+    volumes: ["./data:/data"]
+    environment: 
+      - TZ=JST-9
+      - IRISUSERNAME=SuperUser 
+      - IRISPASSWORD=SYS
+      - IRISNAMESPACE=R4FHIRNAMESPACE
+    command: --check-caps false

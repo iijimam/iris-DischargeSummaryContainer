@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>退院時サマリ作成確認画面</h2>
+
+<div class="form">
+    <div class="card-body">
+        <div class="alert alert-info" role="alert">
+            <h1>患者番号：{{post["Patient"][2]}}　患者名：{{ post["Patient"][0]}} {{post["Patient"][1]}}</h1>
+        </div>    
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-warning">入院開始日：{{ post["Encounter"][0]}}　入院終了日：{{post["Encounter"][1]}}</li>
+                <li class="list-group-item list-group-item-warning">処方データ：{{post["MedicationRequest"][0]}}　処方オーダー日付は、{{post["MedicationRequest"][4]}} です。{{post["MedicationRequest"][1]}} 日分出ています</li>
+                <li class="list-group-item list-group-item-warning">病名：{{post["Condition"][0]}}</li>
+                <li class="list-group-item list-group-item-warning">ケアプラン：{{post["CarePlan"][0]}}　より　{{post["CarePlan"][1]}}</li>
+
+            {% for alist in post["Allergy"] %}
+                <li class="list-group-item list-group-item-warning">
+                    アレルギー：{{ alist[0]}} - {{alist[3]}}
+                </li>
+            {% endfor %}
+            <li class="list-group-item list-group-item-warning">
+                <a class="btn btn-success btn-sm" href="/fhir/{{ post["Patient"][2] }}/DC001/{{ post["Encounter"][2] }}/{{post["MedicationRequest"][8]}}" role="button">作成開始</a>
+                <a class="btn btn-secondary btn-sm" href="/">最初からやり直り</a>
+            </li>
+            </ul>     
+    </div>
+</div>
+{% endblock %}

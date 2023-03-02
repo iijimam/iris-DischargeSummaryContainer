@@ -1,0 +1,38 @@
+//システム設定変更のため %SYSネームスペースに移動
+set $namespace="%SYS"
+// 事前定義ユーザのパスワードを無期限に設定する（デフォルトパスワードはSYS）
+Do ##class(Security.Users).UnExpireUserPasswords("*")
+// 日本語ロケールに変更（コンテナがUbuntu英語版のためデフォルトは英語ロケール）を利用
+Do ##class(Config.NLS.Locales).Install("jpuw")
+
+// コンテナ内Pythonからimport iris するためにコールインサービスを有効に設定
+// 現在の設定を取得
+set st=##class(Security.Services).Get("%Service_CallIn",.pro)
+set pro("Enabled")=1
+// 修正登録
+set st=##class(Security.Services).Modify("%Service_CallIn",.pro)
+
+
+//FHIRサーバ作成用クラスインポートと実行 
+do $system.OBJ.Load("/opt/try/Setup.cls", "ck")
+// アプリケーション用RESTエンドポイント作成
+set st=##class(App.Setup).SetRESTPath()
+// FHIRR4リポジトリ作成
+set st=##class(App.Setup).setUpFHIR("r4fhirnamespace")
+
+// アプリ用コードロード
+set $namespace="r4fhirnamespace"
+do $system.OBJ.LoadDir("/opt/try/src",,,1)
+// FHIRTemplate関連でエラーが出るのでコンパイル2度実施
+do $system.OBJ.CompilePackage("JSONTemplate,FHIRTemplate,FHIRCustom,FHIRTest,FHIRFacade,DischargeSummary,ISJ","cukb")
+do $system.OBJ.CompilePackage("JSONTemplate,FHIRTemplate,FHIRCustom,FHIRTest,FHIRFacade,DischargeSummary,ISJ","cukb")
+
+
+// 退院時サマリ用初期設定実行
+do ##class(ISJ.Utils).init()
+do ##class(FHIRCustom.DB.ByomeiCode).ImportData("/opt/try/nmain509.txt")
+do ##class(FHIRTemplate.Util.CodeTable).GenerateAll()
+
+
+
+halt
